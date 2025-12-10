@@ -14,3 +14,21 @@ from .models import (
     )
 
 
+logger = logging.getLogger('django')
+
+class PlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Platform
+        fields = ('id','name')
+        
+class ServicePlatformsCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServicePlatforms
+        fields = ('service_provider','platform','credentials')
+    
+    
+    def to_internal_value(self, data):
+        """Custom validation to check if service_provider and platform exist before default validation."""
+        errors = {}
+
+      
